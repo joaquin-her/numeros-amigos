@@ -92,4 +92,4 @@ pytest amigos_test.py
 
 ## Desarrollo de la solucion
 
-Descrito en el informe [[informe/main.pdf]]
+Descrito en el [informe de desarrollo](informe/main.pdf)
