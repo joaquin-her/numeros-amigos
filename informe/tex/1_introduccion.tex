@@ -1,1 +1,49 @@
 \section{Introducción}
+    \subsection{¿Que son los numeros amigos?}
+    Dos números son amigos cuando:
+        - la suma de los divisores del primero (excepto él mismo) es igual al segundo
+        - la suma de los divisores del segundo (excepto él mismo) es igual al primero
+
+        \subsection{Ejemplo}
+            Los números 220 y 284 son amigos: 
+            
+            Los divisores de 220 son 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 y 110, y su suma es 284 
+
+            Los divisores de 284 son 1, 2, 4, 71 y 142, que suman 220
+
+        \subsection{¿Como resolverlo?}
+            La forma mas directa de resolverlo es haciendo un algoritmo que recorra todos los números hasta el valor máximo dado, y para cada uno de ellos calcule la suma de sus divisores (excepto él mismo) y verifique si ese resultado
+            tiene como suma de sus divisores al numero por el que está iterando.
+            La consecuencia que tiene este algoritmo es que su complejidad temporal es muy alta ya que recorre y recalcula divisores y sumas de divisores muchas veces.
+            
+        \subsection{Supuestos}
+            Se supone como valor maximo a hallar siempre un numero entero positivo, mayor o igual a 0 y como salida del algoritmo no un listado de tuplas de pares de amigos
+            sino la impresion por consola de esta, por lo que no hace falta estructuras de datos internas del algoritmo que requieran de almacenar estos encontrados para 
+            poder imprimirlos
+            
+        \subsection{Implementación}
+            \begin{lstlisting}[language=Python]
+import time
+def amigos(MAX):
+    
+    t1=time.time()
+    for i in range(MAX):
+        s=0
+        for j in range (1,i-1+1):
+            if i%j==0:
+                s+=j
+        s2=0
+        for k in range (1,s-1):
+            if s%k==0:
+                s2+=k
+        if i==s2:
+            print(i,s)
+   
+    t2=time.time()    
+    print(t2-t1)
+    
+amigos(100000)
+            \end{lstlisting}
+        \subsection{Consecuencia}
+            El algoritmo tarda 329 segundos en encontrar los pares de numeros amigos hasta el 100.000 (en el ordenador del escritor del informe)\footnote{Procesador: Intel Core I5, single thread, 4.3GHz max} y 
+            en el siguiente grafico se visualiza el crecimiento de los tiempos a medida que aumenta el valor maximo hasta el cual se busca.
