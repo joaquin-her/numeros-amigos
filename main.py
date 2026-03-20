@@ -3,30 +3,22 @@ import math
 def amigos(MAX):
     sumas = {}
     t1=time.time()
-    for i in range(MAX):
-        sumas[i] = suma_de_divisores(i)
-        s = sumas[i]
+    if MAX > 0:
+        print(0, 0)
+    # Calcular sumas de divisores usando el método de la criba
+    for i in range(1, MAX):
+        for j in range(i * 2, MAX + 1, i):
+            sumas[j] = sumas.get(j, 0) + i
+    
+        s = sumas.get(i, 0)
         if s > i:
             continue
         else:
             if s in sumas:
                 s2 = sumas[s]
                 if i == s2:
-                    print(i,s)       
+                    print(i, s)       
     t2=time.time()    
     print(t2-t1)
     
-def suma_de_divisores(numero):
-    if numero <= 1:
-        return 0
-    suma = 1  # 1 siempre es divisor
-    sqrt_n = int(math.sqrt(numero))
-    
-    for i in range(2, sqrt_n + 1):
-        if numero % i == 0:
-            suma += i
-            if i != numero // i:  # Evitar contar dos veces el mismo divisor
-                suma += numero // i
-    
-    return suma
-amigos(100000)
+amigos(200000)
