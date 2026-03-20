@@ -1,1 +1,31 @@
 \section{Desarrollo}
+
+\subsection{Primera optimización: Evitar recálculos}
+
+Se agrega una lista con la suma de los divisores de los números que se van iterando y luego se utiliza para hacer comparaciones y evitar 
+recálculos de sumas de los mismos valores. Esta optimización logró reducir el tiempo de ejecución de 330 a 205 segundos para 100\,000 valores.
+
+\begin{lstlisting}[language=Python]
+
+    import time
+    def amigos(MAX):
+        sumas = []
+        t1=time.time()
+        for i in range(MAX):
+            s=0
+            for j in range (1,i-1+1):
+                if i%j==0:
+                    s+=j
+            sumas.append(s)
+            if s > i:
+                continue
+            else:
+                s2 = sumas[s]
+                if i == s2:
+                    print(i,s)       
+        t2=time.time()    
+        print(t2-t1)
+
+    amigos(100000)
+\end{lstlisting}
+
