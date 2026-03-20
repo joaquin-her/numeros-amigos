@@ -94,3 +94,43 @@ def amigos(MAX):
     t2 = time.time()    
     print(t2 - t1)
 \end{lstlisting}
+
+Con esta optimizacion, el tiempo de ejecucion se redujo de 205 segundos a 0.88 segundos, siendo así una optimizacion extremadamente eficaz 
+
+\subsection{Tercera optimización: uso de diccionarios}
+
+La tercera optimización consiste en reemplazar la lista pre-asignada por un diccionario para almacenar las sumas de divisores.
+
+\textbf{Justificación:} 
+
+La implementación anterior utilizaba una lista de tamaño fijo `sumas = [0] * MAX`, lo que implicaba:
+- Verificación de límites `if s < MAX` antes de acceder a `sumas[s]`
+- Riesgo de IndexError cuando la suma de divisores excedía el rango MAX
+
+\textbf{Ventajas de esta optimización:}
+
+\begin{itemize}
+    \item \textbf{Velocidad de acceso:} El acceso directo con `if s in sumas` es más rápido que la verificación de límites
+    \item \textbf{Legibilidad del código:} La condición `if s in sumas` expresa más claramente la intención de verificar existencia
+\end{itemize}
+
+\textbf{Consideración:} Aunque se elimina el riesgo de IndexError, se introduce la posibilidad de obtener `None` cuando se accede a una clave que no existe en el diccionario. Sin embargo, este riesgo es manejado mediante la verificación previa `if s in sumas`, lo que mantiene la seguridad del acceso.
+
+\textbf{Resultados:} Con esta optimización, el tiempo de ejecución para 100\,000 valores se redujo a \textbf{0.75 segundos}, mejorando aún más el rendimiento anterior de 0.88 segundos.
+
+\textbf{Comparación de implementaciones:}
+
+\begin{lstlisting}[language=Python]
+# Version con lista (anterior)
+sumas = [0] * MAX
+# ...
+if s < MAX:  # Verificacion de limites necesaria
+    s2 = sumas[s]
+
+# Version con diccionario (actual)
+sumas = {}
+# ...
+if s in sumas:  # Sin verificacion de limites
+    s2 = sumas[s]
+\end{lstlisting}
+

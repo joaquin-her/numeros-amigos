@@ -1,7 +1,7 @@
 import time
 import math
 def amigos(MAX):
-    sumas = [0] * MAX
+    sumas = {}
     t1=time.time()
     for i in range(MAX):
         sumas[i] = suma_de_divisores(i)
@@ -9,7 +9,7 @@ def amigos(MAX):
         if s > i:
             continue
         else:
-            if s < MAX:
+            if s in sumas:
                 s2 = sumas[s]
                 if i == s2:
                     print(i,s)       
