@@ -5,6 +5,8 @@
 Se agrega una lista con la suma de los divisores de los números que se van iterando y luego se utiliza para hacer comparaciones y evitar 
 recálculos de sumas de los mismos valores. Esta optimización logró reducir el tiempo de ejecución de 330 a 205 segundos para 100\,000 valores.
 
+\textbf{Implementacion:} 
+
 \begin{lstlisting}[language=Python]
 
     import time
@@ -29,3 +31,66 @@ recálculos de sumas de los mismos valores. Esta optimización logró reducir el
     amigos(100000)
 \end{lstlisting}
 
+\subsection{Segunda optimización: búsqueda de divisores}
+
+Dada que la actual búsqueda de divisores para cada i es de O(i) y hay n valores, esto concluye en que para este paso
+la complejidad temporal es O(n * n).
+
+Esta optimización busca hacerse acotando el rango de búsqueda para cada i, reemplazando las n probabilidades por $\sqrt{n} + 1$
+ya que si un número tiene un divisor mayor que su raíz cuadrada, necesariamente tiene un divisor menor que su raíz cuadrada.
+
+\textbf{Justificación matemática:} 
+
+Para entender por qué podemos acotar la búsqueda de divisores hasta $\sqrt{n}$, consideremos la siguiente demostración:
+
+\begin{itemize}
+    \item Sea $n \in \mathbb{N}$ un número entero positivo
+    \item Sea $d$ un divisor de $n$ tal que $d > \sqrt{n}$
+    \item Por definición de divisor: $\exists \, d' \in \mathbb{N}$ tal que $n = d \cdot d'$
+\end{itemize}
+
+\textbf{Demostración:}
+\begin{align}
+    d > \sqrt{n} &\implies \frac{n}{d} < \frac{n}{\sqrt{n}} \\
+    &\implies d' = \frac{n}{d} < \sqrt{n}
+\end{align}
+
+Por lo tanto, por cada divisor $d > \sqrt{n}$ existe necesariamente un divisor complementario $d' < \sqrt{n}$. 
+
+\textbf{Conclusión:} Solo necesitamos iterar hasta $\lfloor\sqrt{n}\rfloor$ para encontrar todos los pares de divisores. Cuando encontramos un divisor $i$, añadimos tanto $i$ como su complementario $\frac{n}{i}$ a la suma total.
+
+Se implementa una función \texttt{suma\_de\_divisores} que utiliza esta propiedad, iterando solo hasta $\sqrt{n}$ y añadiendo ambos divisores cuando encuentra un par. Esto reduce la complejidad temporal de O(n) a O($\sqrt{n}$) por cada número.
+
+\textbf{Implementacion:} 
+\begin{lstlisting}[language=Python]
+import math
+
+def suma_de_divisores(numero):
+    if numero <= 1:
+        return 0
+    suma = 1  # 1 siempre es divisor
+    sqrt_n = int(math.sqrt(numero))
+    
+    for i in range(2, sqrt_n + 1):
+        if numero % i == 0:
+            suma += i
+            if i != numero // i:  # Evitar contar dos veces el mismo divisor
+                suma += numero // i
+    
+    return suma
+
+def amigos(MAX):
+    sumas = [0] * MAX
+    t1 = time.time()
+    for i in range(MAX):
+        sumas[i] = suma_de_divisores(i)
+        s = sumas[i]
+        if s > i:
+            continue
+        else:
+            s2 = sumas[s]
+            if i == s2:
+                print(i, s)       
+    t2 = time.time()    
+    print(t2 - t1)
+\end{lstlisting}
