@@ -14,7 +14,7 @@ El algoritmo de búsqueda de divisores fue evaluado con límites superiores desd
 1\,000 hasta 1\,000\,000. Los resultados se presentan en la
 Tabla~\ref{tab:busqueda_divisores}.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \begin{tabular}{|r|r|}
 \hline
@@ -48,7 +48,7 @@ artefacto producido por medir en un rango demasiado estrecho de valores
 (10\,000--250\,000); al extender el rango hasta $10^{6}$, la regresión converge
 hacia el valor teórico de 1.5.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{../graficos/tiempos_ejecucion.png}
     \caption{Análisis de tiempos de ejecución del algoritmo de búsqueda de
@@ -63,7 +63,7 @@ hacia el valor teórico de 1.5.
 Cuando se utiliza una versión optimizada utilizando el método de la criba para calcular sumas de divisores de manera eficiente, esta aproximación demostró una mejora significativa en el rendimiento para limites aun mayores.
 Estas son las mediciones comparativas de estas ultimas dos mejoras al algoritmo:
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -87,8 +87,8 @@ Estas son las mediciones comparativas de estas ultimas dos mejoras al algoritmo:
 El análisis experimental reveló diferencias en la complejidad algorítmica dependiendo del algoritmo utilizado:
 
 \begin{itemize}
-    \item \textbf{Algoritmo de Búsqueda de Divisores}: Complejidad $O(n*sqrt(n))$
-    \item \textbf{Algoritmo de Criba}: Complejidad $O(n*log(n))$
+    \item \textbf{Algoritmo de Búsqueda de Divisores}: Complejidad $O(n \times \sqrt{n})$
+    \item \textbf{Algoritmo de Criba}: Complejidad $O(n* \log(n))$
 \end{itemize}
 
 La reducción en el exponente de complejidad del método de criba explica la mejora progresiva observada en el rendimiento, que alcanza hasta 4.9 veces mejor para $n = 250,000$.
@@ -98,7 +98,7 @@ La reducción en el exponente de complejidad del método de criba explica la mej
 Se generaron múltiples gráficos para ilustrar el comportamiento de los algoritmos:
 
 \subsubsection{Comparación de Rendimiento Directo}
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{../graficos/01_comparacion_barras.png}
     \caption{Comparación de tiempos de ejecución entre algoritmos de criba y búsqueda de divisores}
@@ -108,7 +108,7 @@ Se generaron múltiples gráficos para ilustrar el comportamiento de los algorit
 Este gráfico busca mostrar de manera visual la diferencia directa en los tiempos de ejecución entre ambos algoritmos para diferentes valores de $n$, permitiendo apreciar claramente la superioridad del método de criba.
 
 \subsubsection{Evolución Temporal del Rendimiento}
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{../graficos/02_evolucion_lineas.png}
     \caption{Evolución temporal del rendimiento según el tamaño del problema}
@@ -117,8 +117,9 @@ Este gráfico busca mostrar de manera visual la diferencia directa en los tiempo
 
 Esta visualización busca ilustrar cómo evolucionan los tiempos de ejecución a medida que aumenta el tamaño del problema, mostrando las diferentes tasas de crecimiento entre ambos algoritmos y destacando la escalabilidad del método de criba.
 
+\clearpage
 \subsubsection{Análisis de Complejidad Algorítmica}
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{../graficos/03_analisis_complejidad.png}
     \caption{Análisis de complejidad algorítmica en escala logarítmica}
@@ -127,8 +128,9 @@ Esta visualización busca ilustrar cómo evolucionan los tiempos de ejecución a
 
 Este gráfico busca demostrar experimentalmente las complejidades teóricas de ambos algoritmos mediante el análisis en escala log-log, donde las pendientes confirman las complejidades $O(n*sqrt(n))$ para búsqueda de divisores y $O(n*log(n))$ para criba.
 
+\clearpage
 \subsubsection{Análisis Avanzado de Eficiencia}
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{../graficos/04_analisis_avanzado.png}
     \caption{Análisis avanzado de rendimiento: eficiencia y tendencias}

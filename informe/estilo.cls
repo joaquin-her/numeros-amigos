@@ -20,7 +20,7 @@
 \RequirePackage[a4paper, left=30mm, right=30mm, top=30mm, bottom=30mm, marginpar=25mm]{geometry}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{csquotes}
-
+\RequirePackage{hanging}
 
 \RequirePackage{tikz}
 

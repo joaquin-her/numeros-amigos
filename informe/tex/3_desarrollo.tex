@@ -46,16 +46,16 @@ Para entender por qué podemos acotar la búsqueda de divisores hasta $\sqrt{n}$
 \begin{itemize}
     \item Sea $n \in \mathbb{N}$ un número entero positivo
     \item Sea $d$ un divisor de $n$ tal que $d > \sqrt{n}$
-    \item Por definición de divisor: $\exists \, d' \in \mathbb{N}$ tal que $n = d \cdot d'$
+    \item Por definición de divisor: $\exists \, d^{\prime} \in \mathbb{N}$
 \end{itemize}
 
 \textbf{Demostración:}
 \begin{align}
     d > \sqrt{n} &\implies \frac{n}{d} < \frac{n}{\sqrt{n}} \\
-    &\implies d' = \frac{n}{d} < \sqrt{n}
+    &\implies d^{\prime} = \frac{n}{d} < \sqrt{n}
 \end{align}
 
-Por lo tanto, por cada divisor $d > \sqrt{n}$ existe necesariamente un divisor complementario $d' < \sqrt{n}$. 
+Por lo tanto, por cada divisor $d > \sqrt{n}$ existe necesariamente un divisor complementario $d^{\prime} < \sqrt{n}$. 
 
 \textbf{Conclusión:} Solo necesitamos iterar hasta $\lfloor\sqrt{n}\rfloor$ para encontrar todos los pares de divisores. Cuando encontramos un divisor $i$, añadimos tanto $i$ como su complementario $\frac{n}{i}$ a la suma total.
 
