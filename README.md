@@ -54,7 +54,7 @@ def amigos(MAX):
     
 amigos(100000)
 ```
-**Complejidad total temporal:** O(n^3)
+**Complejidad total temporal:** O(n^2)
 
 **Complejidad total espacial:** O(1) 
 
@@ -93,3 +93,14 @@ pytest amigos_test.py
 ## Desarrollo de la solucion
 
 Descrito en el [informe de desarrollo](informe/main.pdf)
+
+## Archivos de Mediciones
+
+El proyecto incluye los siguientes notebooks Jupyter para el análisis de rendimiento:
+
+- **`mediciones1_original.ipynb`** - Realiza mediciones del algoritmo original para validar su complejidad O(n²). Genera gráficos de tiempos y análisis de complejidad en escala log-log.
+- **`mediciones2_comparaciones.ipynb`** - Compara el rendimiento entre el algoritmo de criba y búsqueda de divisores. Genera 4 gráficos comparativos y análisis de eficiencia.
+- **`mediciones3_complejodad_optimizado.ipynb`** - Análisis empírico de complejidad del algoritmo optimizado en un rango amplio (10³ a 10⁶) para validar O(n^1.5).
+
+Para casos que se quiera hacer mas mediciones y analisis a el algoritmo original, se encuentra un csv con los resultados de la ejecucion de este algoritmo para valores entre 
+10.000 y 250.000

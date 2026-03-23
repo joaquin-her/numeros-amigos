@@ -1,49 +1,115 @@
 \section{Introducción}
-    \subsection{¿Que son los numeros amigos?}
+
+    \subsection{¿Qué son los números amigos?}
     Dos números son amigos cuando:
-        - la suma de los divisores del primero (excepto él mismo) es igual al segundo
-        - la suma de los divisores del segundo (excepto él mismo) es igual al primero
+    \begin{itemize}
+        \item la suma de los divisores del primero (excepto él mismo) es igual al segundo, y
+        \item la suma de los divisores del segundo (excepto él mismo) es igual al primero.
+    \end{itemize}
 
         \subsection{Ejemplo}
-            Los números 220 y 284 son amigos: 
-            
-            Los divisores de 220 son 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 y 110, y su suma es 284 
+            Los números 220 y 284 son amigos:
 
-            Los divisores de 284 son 1, 2, 4, 71 y 142, que suman 220
+            Los divisores de 220 son 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 y 110, y su suma es 284.
 
-        \subsection{¿Como resolverlo?}
-            La forma mas directa de resolverlo es haciendo un algoritmo que recorra todos los números hasta el valor máximo dado, y para cada uno de ellos calcule la suma de sus divisores (excepto él mismo) y verifique si ese resultado
-            tiene como suma de sus divisores al numero por el que está iterando.
-            La consecuencia que tiene este algoritmo es que su complejidad temporal es muy alta ya que recorre y recalcula divisores y sumas de divisores muchas veces.
-            
+            Los divisores de 284 son 1, 2, 4, 71 y 142, que suman 220.
+
+        \subsection{¿Cómo resolverlo?}
+            La forma más directa de resolverlo es recorrer todos los números hasta el valor máximo
+            dado y, para cada uno, calcular la suma de sus divisores propios y verificar si ese
+            resultado tiene como suma de divisores al número original.
+            La consecuencia de este enfoque es una complejidad temporal muy elevada, ya que
+            recalcula divisores y sumas de divisores para cada par de candidatos.
+
         \subsection{Supuestos}
-            Se supone como valor maximo a hallar siempre un numero entero positivo, mayor o igual a 0 y como salida del algoritmo no un listado de tuplas de pares de amigos
-            sino la impresion por consola de esta, por lo que no hace falta estructuras de datos internas del algoritmo que requieran de almacenar estos encontrados para 
-            poder imprimirlos
-            
+            Se asume como valor máximo siempre un número entero positivo mayor o igual a 0.
+            La salida del algoritmo es la impresión por consola de los pares encontrados,
+            por lo que no se requieren estructuras de datos adicionales para almacenarlos.
+
         \subsection{Implementación}
             \begin{lstlisting}[language=Python]
 import time
 def amigos(MAX):
-    
+
     t1=time.time()
     for i in range(MAX):
         s=0
-        for j in range (1,i-1+1):
+        for j in range(1, i-1+1):
             if i%j==0:
                 s+=j
         s2=0
-        for k in range (1,s-1):
+        for k in range(1, s-1):
             if s%k==0:
                 s2+=k
         if i==s2:
             print(i,s)
-   
-    t2=time.time()    
+
+    t2=time.time()
     print(t2-t1)
-    
+
 amigos(100000)
             \end{lstlisting}
+
         \subsection{Consecuencia}
-            El algoritmo tarda 329 segundos en encontrar los pares de numeros amigos hasta el 100.000 (en el ordenador del escritor del informe)\footnote{Procesador: Intel Core I5, single thread, 4.3GHz max} y 
-            en el siguiente grafico se visualiza el crecimiento de los tiempos a medida que aumenta el valor maximo hasta el cual se busca.
+            El algoritmo tarda 329 segundos en encontrar los pares de números amigos hasta el
+            100.000 (en el ordenador del autor del
+            informe)\footnote{Procesador: Intel Core I5, single thread, 4.3\,GHz máx.}
+            y en el siguiente gráfico se visualiza el crecimiento de los tiempos a medida que
+            aumenta el valor máximo de búsqueda.
+
+            Las mediciones completas se presentan en la Tabla~\ref{tab:algoritmo_original}.
+            Se ejecutaron sobre el mismo hardware para valores de \texttt{MAX} entre 10.000
+            y 250.000.
+
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{|r|r|r|}
+            \hline
+            \textbf{MAX} & \textbf{Tiempo (s)} & \textbf{Pares encontrados} \\
+            \hline
+             10\,000 &     3.18 & 15 \\
+             25\,000 &    20.25 & 21 \\
+             50\,000 &    80.96 & 21 \\
+            100\,000 &   330.97 & 31 \\
+            150\,000 &   740.23 & 39 \\
+            200\,000 & 1\,277.02 & 47 \\
+            250\,000 & 2\,038.56 & 49 \\
+            \hline
+            \end{tabular}
+            \caption{Tiempos de ejecución del algoritmo original en función de \texttt{MAX}.}
+            \label{tab:algoritmo_original}
+            \end{table}
+
+            El análisis de los incrementos confirma el comportamiento cuadrático: cada vez que
+            \texttt{MAX} se duplica, el tiempo se cuadruplica, tal como predice una complejidad
+            $\mathcal{O}(n^{2})$ (véase Tabla~\ref{tab:incrementos_original}).
+
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{|l|r|r|}
+            \hline
+            \textbf{Intervalo} & \textbf{Factor en MAX} & \textbf{Factor en tiempo} \\
+            \hline
+            10\,000 $\to$ 25\,000  & $\times 2.50$ & $\times 6.37$ \\
+            25\,000 $\to$ 50\,000  & $\times 2.00$ & $\times 4.00$ \\
+            50\,000 $\to$ 100\,000 & $\times 2.00$ & $\times 4.09$ \\
+            100\,000 $\to$ 150\,000 & $\times 1.50$ & $\times 2.24$ \\
+            150\,000 $\to$ 200\,000 & $\times 1.33$ & $\times 1.73$ \\
+            200\,000 $\to$ 250\,000 & $\times 1.25$ & $\times 1.60$ \\
+            \hline
+            \end{tabular}
+            \caption{Comparación de factores de crecimiento entre MAX y tiempo de ejecución.}
+            \label{tab:incrementos_original}
+            \end{table}
+
+            La regresión en escala log-log arrojó una pendiente de \textbf{2.00}, lo que
+            confirma empíricamente la complejidad $\mathcal{O}(n^{2})$ del algoritmo original.
+            Este resultado motivó el desarrollo de implementaciones más eficientes, detalladas
+            en las secciones siguientes.
+
+            \begin{figure}[htbp]
+                \centering
+                \includegraphics[width=0.9\textwidth]{../graficos/output.png}
+                \caption{Visualización del crecimiento de tiempos de ejecución del algoritmo original}
+                \label{fig:output}
+            \end{figure}
